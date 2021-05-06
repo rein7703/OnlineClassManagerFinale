@@ -61,7 +61,7 @@ namespace Kuliah_Manager
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.lblTitle.Location = new System.Drawing.Point(471, 30);
+            this.lblTitle.Location = new System.Drawing.Point(455, 30);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(263, 32);
             this.lblTitle.TabIndex = 1;
@@ -71,12 +71,12 @@ namespace Kuliah_Manager
             // dgvClass
             // 
             this.dgvClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClass.Location = new System.Drawing.Point(477, 101);
+            this.dgvClass.Location = new System.Drawing.Point(477, 145);
             this.dgvClass.Name = "dgvClass";
             this.dgvClass.ReadOnly = true;
             this.dgvClass.RowHeadersWidth = 51;
             this.dgvClass.RowTemplate.Height = 24;
-            this.dgvClass.Size = new System.Drawing.Size(649, 450);
+            this.dgvClass.Size = new System.Drawing.Size(649, 406);
             this.dgvClass.TabIndex = 2;
             this.dgvClass.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClass_CellContentClick);
             // 
@@ -298,9 +298,9 @@ namespace Kuliah_Manager
             // 
             // clearF
             // 
-            this.clearF.Location = new System.Drawing.Point(166, 482);
+            this.clearF.Location = new System.Drawing.Point(265, 465);
             this.clearF.Name = "clearF";
-            this.clearF.Size = new System.Drawing.Size(85, 33);
+            this.clearF.Size = new System.Drawing.Size(85, 39);
             this.clearF.TabIndex = 23;
             this.clearF.Text = "clear form";
             this.clearF.UseVisualStyleBackColor = true;
@@ -310,23 +310,24 @@ namespace Kuliah_Manager
             // 
             this.Refresh.Location = new System.Drawing.Point(996, 39);
             this.Refresh.Name = "Refresh";
-            this.Refresh.Size = new System.Drawing.Size(130, 23);
+            this.Refresh.Size = new System.Drawing.Size(130, 35);
             this.Refresh.TabIndex = 24;
             this.Refresh.Text = "Refresh Table";
             this.Refresh.UseVisualStyleBackColor = true;
             // 
             // tbSearch
             // 
-            this.tbSearch.Location = new System.Drawing.Point(477, 73);
+            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(477, 94);
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(514, 22);
+            this.tbSearch.Size = new System.Drawing.Size(514, 27);
             this.tbSearch.TabIndex = 25;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(1026, 72);
+            this.btnSearch.Location = new System.Drawing.Point(1009, 92);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Size = new System.Drawing.Size(105, 32);
             this.btnSearch.TabIndex = 26;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
