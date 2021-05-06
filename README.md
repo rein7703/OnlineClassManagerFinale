@@ -13,5 +13,7 @@ Berikut adalah class diagram program
 
 <br>
 <br>
-Keterangan
+Keterangan:
+<br>
+Database dengan Entity Framework sudah terkoneksi dengan program. Contoh penggunaannya adalah dengan melakukan Adding kelas (matakuliah) dan melakukan searching nama matakuliah.
 
