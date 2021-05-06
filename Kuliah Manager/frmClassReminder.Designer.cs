@@ -49,6 +49,10 @@ namespace Kuliah_Manager
             this.btnDelete = new System.Windows.Forms.Button();
             this.cbMin = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.clearF = new System.Windows.Forms.Button();
+            this.Refresh = new System.Windows.Forms.Button();
+            this.tbSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +73,7 @@ namespace Kuliah_Manager
             this.dgvClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClass.Location = new System.Drawing.Point(477, 101);
             this.dgvClass.Name = "dgvClass";
+            this.dgvClass.ReadOnly = true;
             this.dgvClass.RowHeadersWidth = 51;
             this.dgvClass.RowTemplate.Height = 24;
             this.dgvClass.Size = new System.Drawing.Size(649, 450);
@@ -291,11 +296,51 @@ namespace Kuliah_Manager
             this.label1.TabIndex = 22;
             this.label1.Text = ":";
             // 
+            // clearF
+            // 
+            this.clearF.Location = new System.Drawing.Point(166, 482);
+            this.clearF.Name = "clearF";
+            this.clearF.Size = new System.Drawing.Size(85, 33);
+            this.clearF.TabIndex = 23;
+            this.clearF.Text = "clear form";
+            this.clearF.UseVisualStyleBackColor = true;
+            this.clearF.Click += new System.EventHandler(this.clearF_Click);
+            // 
+            // Refresh
+            // 
+            this.Refresh.Location = new System.Drawing.Point(996, 39);
+            this.Refresh.Name = "Refresh";
+            this.Refresh.Size = new System.Drawing.Size(130, 23);
+            this.Refresh.TabIndex = 24;
+            this.Refresh.Text = "Refresh Table";
+            this.Refresh.UseVisualStyleBackColor = true;
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(477, 73);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(514, 22);
+            this.tbSearch.TabIndex = 25;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(1026, 72);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 26;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // frmClassReminder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1154, 572);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.tbSearch);
+            this.Controls.Add(this.Refresh);
+            this.Controls.Add(this.clearF);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbMin);
             this.Controls.Add(this.btnDelete);
@@ -348,6 +393,10 @@ namespace Kuliah_Manager
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ComboBox cbMin;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button clearF;
+        private System.Windows.Forms.Button Refresh;
+        private System.Windows.Forms.TextBox tbSearch;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
 

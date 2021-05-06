@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data.Entity.Migrations;
 
 namespace Kuliah_Manager
 {
@@ -25,28 +26,7 @@ namespace Kuliah_Manager
             mode = Mode.Insert;
             ThisReminder = new ReminderModel();
         }
-        public frmClassReminder(string className, string meetingLink, string attendanceLink, string driveLink, string day, string hour, string min)
-        {
-            InitializeComponent();
-            mode = Mode.Edit;
-            newClassTbl = new ClassTbl
-            {
-                ClassName = className,
-                MeetingLink = meetingLink,
-                AttendanceLink = attendanceLink,
-                DriveLink = driveLink,
-                Day = day,
-                Hour = hour,
-                Min = min,
-            };
-            tbMatkul.Text = className;
-            tbMeeting.Text = meetingLink;
-            tbPresensi.Text = attendanceLink;
-            tbDrive.Text = driveLink;
-            cbHari.Text = day;
-            cbHour.Text = hour;
-            cbMin.Text = min;
-        }
+        
 
         private void AddData()
         {
@@ -66,6 +46,7 @@ namespace Kuliah_Manager
                     };
                     db.ClassTbls.Add(newClassTbl);
                     db.SaveChanges();
+                    populate();
                     MessageBox.Show("Class Ditambahkan");
                     
                 }
@@ -77,14 +58,15 @@ namespace Kuliah_Manager
         }
         public void EditData()
         {
+            
             using (var db = new ReminderModel())
             {
-                var result = db.ClassTbls.SingleOrDefault(k => k.ClassName == newClassTbl.ClassName);
+                var result = db.ClassTbls.SingleOrDefault(k => k.ClassName == tbMatkul.Text);
                 if (result != null)
                 {
                     if (tbMatkul.Text != "" && tbMeeting.Text != "" && tbPresensi.Text != "" && tbDrive.Text != "" && cbHari.Text != "" && cbHour.Text != "" && cbMin.Text != "")
                     {
-                        result.ClassName = tbMatkul.Text;
+                        
                         result.MeetingLink = tbMatkul.Text;
                         result.AttendanceLink = tbPresensi.Text;
                         result.DriveLink = tbDrive.Text;
@@ -93,7 +75,7 @@ namespace Kuliah_Manager
                         result.Min = cbMin.Text;
                         db.SaveChanges();
                         MessageBox.Show("Class berhasil diperbaharui");
-                        Close();
+                        
                     }
                     else
                     {
@@ -106,8 +88,7 @@ namespace Kuliah_Manager
         {
             if (mode == Mode.Insert)
                 AddData();
-            else if (mode == Mode.Edit)
-                EditData();
+            
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -122,7 +103,51 @@ namespace Kuliah_Manager
 
         private void dgvClass_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.RowIndex >= 0)
+
+            {
+                DataGridViewRow row = this.dgvClass.Rows[e.RowIndex];
+
+                if (row.Cells != null)
+                {
+
+                    tbMatkul.Text = row.Cells["className"].Value.ToString();
+                    tbMeeting.Text = row.Cells["MeetingLink"].Value.ToString();
+                    tbPresensi.Text = row.Cells["AttendanceLink"].Value.ToString();
+                    tbDrive.Text = row.Cells["DriveLink"].Value.ToString();
+                    int i = 0;
+                    if(row.Cells["Day"].Value.ToString() == "Senin") 
+                    {
+                        i = 0;
+                    } else if (row.Cells["Day"].Value.ToString() == "Selasa")
+                    {
+                        i = 1;
+                    } else if (row.Cells["Day"].Value.ToString() == "Rabu")
+                    {
+                        i = 2;
+                    } else if(row.Cells["Day"].Value.ToString() == "Kamis")
+                    {
+                        i = 3;
+                    } else if (row.Cells["Day"].Value.ToString() == "Jumat")
+                    {
+                        i = 4;
+                    } else if (row.Cells["Day"].Value.ToString() == "Sabtu")
+                    {
+                        i = 5;
+                    }
+                    cbHari.SelectedIndex = i;
+                    int hr = Int32.Parse(row.Cells["Hour"].Value.ToString());
+                    int min = Int32.Parse(row.Cells["Min"].Value.ToString());
+                    cbHour.SelectedIndex = hr;
+                    cbMin.SelectedIndex = min / 5;
+                    
+
+
+
+
+                }
+            }
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -132,19 +157,40 @@ namespace Kuliah_Manager
                 db.ClassTbls.RemoveRange(db.ClassTbls.Where(item => item.ClassName == tbMatkul.Text));
                 db.SaveChanges();
                 Clear();
-                /*lblNama.Text = "-";
-                lblAlamat.Text = "-";
-                lblNomor.Text = "-";
-                lblEmail.Text = "-";
-                btnEdit.Enabled = false;
-                btnHapus.Enabled = false;*/
+                populate();
+                
             }
         }
         
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            ThisReminder.SaveChanges();
-            MessageBox.Show("Data Updated");
+            try
+            {
+                newClassTbl = new ClassTbl
+                {
+                    ClassName = tbMatkul.Text,
+                    MeetingLink = tbMeeting.Text,
+                    AttendanceLink = tbPresensi.Text,
+                    DriveLink = tbDrive.Text,
+                    Day = cbHari.Text,
+                    Hour = cbHour.Text,
+                    Min = cbMin.Text,
+                };
+                using (var db = new ReminderModel())
+                {
+                    db.ClassTbls.AddOrUpdate(newClassTbl);
+                    db.SaveChanges();
+                    populate();
+                    
+                }
+                MessageBox.Show("Done");
+
+                    
+            }catch(Exception ezpz)
+            {
+                MessageBox.Show(ezpz.Message);
+            }
+
         }
 
         //Method or Function to Clear TextBoxes
@@ -161,8 +207,46 @@ namespace Kuliah_Manager
 
         private void frmClassReminder_Load(object sender, EventArgs e)
         {
-            //Untuk menampilkan/ binding data ke dgv
-            dgvClass.DataSource = ThisReminder.ClassTbls.ToList();
+            populate();
+        }
+
+        private void populate()
+        {
+            List <Kuliah_Manager.ClassTbl> lst = ThisReminder.ClassTbls.ToList();
+            dgvClass.DataSource = lst;
+        }
+
+        private void clearF_Click(object sender, EventArgs e)
+        {
+            Clear();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            
+                tbMatkul.Text = "";
+                tbMeeting.Text = "";
+                tbPresensi.Text = "";
+                tbDrive.Text = "";
+                cbHari.Text = "";
+                cbHour.Text = "";
+                cbMin.Text = "";
+
+                using (var db = new ReminderModel())
+                {
+                    var query = from classReminder in db.ClassTbls where classReminder.ClassName == tbSearch.Text select classReminder;
+                    foreach (var item in query)
+                    {
+                        tbMatkul.Text = item.ClassName;
+                        tbMeeting.Text = item.MeetingLink;
+                        tbPresensi.Text = item.AttendanceLink;
+                        tbDrive.Text = item.DriveLink;
+                        cbHari.Text = item.Day;
+                        cbHour.Text = item.Hour;
+                        cbMin.Text = item.Min;
+                    
+                }
+            }
         }
     }
 }
