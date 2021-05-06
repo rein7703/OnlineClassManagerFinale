@@ -14,52 +14,105 @@ namespace Kuliah_Manager
 {
     public partial class frmClassReminder : Form
     {
+        ClassTbl newClassTbl;
+        ReminderModel ThisReminder;
+
+        public enum Mode { Insert, Edit }
+        Mode mode;
         public frmClassReminder()
         {
             InitializeComponent();
+            mode = Mode.Insert;
+            ThisReminder = new ReminderModel();
         }
-        //create object for ClassBLL and ClassDAL
-        ClassReminderBLL bll = new ClassReminderBLL();
-        ClassReminderDAL dal = new ClassReminderDAL();
+        public frmClassReminder(string className, string meetingLink, string attendanceLink, string driveLink, string day, string hour, string min)
+        {
+            InitializeComponent();
+            mode = Mode.Edit;
+            newClassTbl = new ClassTbl
+            {
+                ClassName = className,
+                MeetingLink = meetingLink,
+                AttendanceLink = attendanceLink,
+                DriveLink = driveLink,
+                Day = day,
+                Hour = hour,
+                Min = min,
+            };
+            tbMatkul.Text = className;
+            tbMeeting.Text = meetingLink;
+            tbPresensi.Text = attendanceLink;
+            tbDrive.Text = driveLink;
+            cbHari.Text = day;
+            cbHour.Text = hour;
+            cbMin.Text = min;
+        }
+
+        private void AddData()
+        {
+            if (tbMatkul.Text != "" && tbMeeting.Text != "" && tbPresensi.Text != "" && tbDrive.Text != "" && cbHari.Text != "" && cbHour.Text != "" && cbMin.Text != "")
+            {
+                using (var db = new ReminderModel())
+                {
+                    newClassTbl = new ClassTbl
+                    {
+                        ClassName = tbMatkul.Text,
+                        MeetingLink = tbMeeting.Text,
+                        AttendanceLink = tbPresensi.Text,
+                        DriveLink = tbDrive.Text,
+                        Day = cbHari.Text,
+                        Hour = cbHour.Text,
+                        Min = cbMin.Text,
+                    };
+                    db.ClassTbls.Add(newClassTbl);
+                    db.SaveChanges();
+                    MessageBox.Show("Class Ditambahkan");
+                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("Semua data harus diisi!");
+            }
+        }
+        public void EditData()
+        {
+            using (var db = new ReminderModel())
+            {
+                var result = db.ClassTbls.SingleOrDefault(k => k.ClassName == newClassTbl.ClassName);
+                if (result != null)
+                {
+                    if (tbMatkul.Text != "" && tbMeeting.Text != "" && tbPresensi.Text != "" && tbDrive.Text != "" && cbHari.Text != "" && cbHour.Text != "" && cbMin.Text != "")
+                    {
+                        result.ClassName = tbMatkul.Text;
+                        result.MeetingLink = tbMatkul.Text;
+                        result.AttendanceLink = tbPresensi.Text;
+                        result.DriveLink = tbDrive.Text;
+                        result.Day = cbHari.Text;
+                        result.Hour = cbHour.Text;
+                        result.Min = cbMin.Text;
+                        db.SaveChanges();
+                        MessageBox.Show("Class berhasil diperbaharui");
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Semua data harus diisi");
+                    }
+                }
+            }
+        }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (mode == Mode.Insert)
+                AddData();
+            else if (mode == Mode.Edit)
+                EditData();
+        }
 
         private void label2_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            //step 1: Get the values from UI
-            bll.ClassName = tbMatkul.Text;
-            bll.MeetingLink = tbMeeting.Text;
-            bll.AttendanceLink = tbPresensi.Text;
-            bll.DriveLink = tbDrive.Text;
-            bll.Day = cbHari.Text;
-            bll.Hour = cbHour.Text;
-            bll.Min = cbMin.Text;
-
-            //step 2 : Adding the values from UI to the database
-            //create a bool variable to check wether the data is inserted succesfulllly or not
-            bool success = dal.Insert(bll);
-
-            //step 3: check wether the data is inserted succesfully or not 
-            if (success == true)
-            {
-                //data or user added succesfully
-                MessageBox.Show("New Class Added Succesfully");
-
-                //Display the user in DataGrid View
-                DataTable dt = dal.Select();
-                dgvClass.DataSource = dt;
-
-                //Clear TextBoxes
-                Clear();
-            }
-            else
-            {
-                //failed to add user
-                MessageBox.Show("Failed to add new class");
-            }
         }
 
         private void cbHari_SelectedIndexChanged(object sender, EventArgs e)
@@ -69,45 +122,29 @@ namespace Kuliah_Manager
 
         private void dgvClass_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //https://stackoverflow.com/questions/35250593/selectedrow-error-datagridview-error
-
-            int i = e.RowIndex;
-            DataGridViewRow row = dgvClass.Rows[i];
-            tbMatkul.Text = row.Cells[0].Value.ToString();
-            tbMeeting.Text = row.Cells[1].Value.ToString();
-            tbPresensi.Text = row.Cells[2].Value.ToString();
-            tbDrive.Text = row.Cells[3].Value.ToString();
-            cbHari.SelectedValue = row.Cells[4].Value.ToString();
-            cbHour.SelectedValue = row.Cells[5].Value.ToString();
-            cbMin.SelectedValue = row.Cells[6].Value.ToString();
+            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //Step 1: Get the UserID from Text Box to Delete the User
-            bll.ClassName = tbMatkul.Text;
-
-            //Step Create the Boolean value to check whether the user deleted or not
-            bool success = dal.Delete(bll);
-
-            //Let's check whteher the user is Deleted or Not
-            if (success == true)
+            using (var db = new ReminderModel())
             {
-                //User Deleted Successfully
-                MessageBox.Show("Class Deleted Successfully.");
-
-                //Refresh DataGrid View
-                DataTable dt = dal.Select();
-                dgvClass.DataSource = dt;
-
-                //Clear the TextBoxes
+                db.ClassTbls.RemoveRange(db.ClassTbls.Where(item => item.ClassName == tbMatkul.Text));
+                db.SaveChanges();
                 Clear();
+                /*lblNama.Text = "-";
+                lblAlamat.Text = "-";
+                lblNomor.Text = "-";
+                lblEmail.Text = "-";
+                btnEdit.Enabled = false;
+                btnHapus.Enabled = false;*/
             }
         }
-
+        
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            //blm
+            ThisReminder.SaveChanges();
+            MessageBox.Show("Data Updated");
         }
 
         //Method or Function to Clear TextBoxes
@@ -124,9 +161,8 @@ namespace Kuliah_Manager
 
         private void frmClassReminder_Load(object sender, EventArgs e)
         {
-            //Menampilkan Classes di DGV ketika di-load
-            DataTable dt = dal.Select();
-            dgvClass.DataSource = dt;
+            //Untuk menampilkan/ binding data ke dgv
+            dgvClass.DataSource = ThisReminder.ClassTbls.ToList();
         }
     }
 }
