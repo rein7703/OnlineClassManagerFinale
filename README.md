@@ -6,4 +6,5 @@ Berikut adalah class diagram program
 <br>
 <br>
 Berikut adalah Diagram Database program
-![DBDiagram](DBDiagram.jpg)
+<br>
+![DBDiagram](DBDiagram.png)
