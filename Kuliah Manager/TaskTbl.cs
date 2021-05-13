@@ -9,7 +9,9 @@ namespace Kuliah_Manager
     [Table("TaskTbl")]
     public partial class TaskTbl
     {
-        public int DueDay { get; set; }
+        [Required]
+        [StringLength(10)]
+        public string DueDay { get; set; }
 
         [Required]
         [StringLength(2)]
@@ -20,8 +22,8 @@ namespace Kuliah_Manager
         public string DueMin { get; set; }
 
         [Key]
-        [MaxLength(100)]
-        public byte[] TaskName { get; set; }
+        [StringLength(150)]
+        public string TaskName { get; set; }
 
         [Required]
         [StringLength(50)]

@@ -8,31 +8,31 @@ namespace Kuliah_Manager
 {
     class User
     {
-        private string name;
-        private string username;
-        private string password;
-        private string nim;
+        public string name;
+        public string username;
+        public string password;
+        public string nim;
         private string message;
         public string Name
         {
             get;
-            private set;
+            set;
         }
         public string Username
         {
             get;
-            private set;
+            set;
         }
         public string Password
         {
             get;
-            private set;
+            set;
         }
 
         public string NIM
         {
             get;
-            private set;
+            set;
         }
 
         public string Message
@@ -47,7 +47,7 @@ namespace Kuliah_Manager
         }
         public bool Verify(string id, string pass)
         {
-            if (Name == id && Password == pass)
+            if (Username == id && Password == pass)
             {
                 return true;
             }
