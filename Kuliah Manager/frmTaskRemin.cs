@@ -287,10 +287,10 @@ namespace Kuliah_Manager
         int dayNow;
 
         //kalau pakai array jadinya jumlah member arraynya harus nyesuaiin jml row dgv, jadinya mending nanti ganti List
-        string[] alarmHour = new string[3];
-        string[] alarmMinute = new string[3];
-        string[] alarmDay = new string[3];
-        int[] alarmDayEnum = new int[3];
+        string[] alarmHour = new string[14];
+        string[] alarmMinute = new string[14];
+        string[] alarmDay = new string[14];
+        int[] alarmDayEnum = new int[14];
 
         private Boolean popup;
 
@@ -316,8 +316,8 @@ namespace Kuliah_Manager
                     axWindowsMediaPlayer1.URL = "school_alarm.mp3";
 
                     //munculkan popup notif
-                    Notification notif = new Notification();
-                    notif.TaskNotif();
+                    TaskNotif notif = new TaskNotif();
+                    notif.Notify();
 
                     lblNotif.Text = ("=> DEADLINE TUGAS " + dgvTask.Rows[i].Cells[3].Value.ToString());
                 }
@@ -330,8 +330,8 @@ namespace Kuliah_Manager
                     axWindowsMediaPlayer1.URL = "school_alarm.mp3";
 
                     //munculkan popup notif
-                    Notification notif = new Notification();
-                    notif.TaskNotifPre();
+                    TaskNotif notif = new TaskNotif();
+                    notif.NotifyPre();
 
                     lblNotif.Text = ("=> Tugas yang akan datang adalah " + dgvTask.Rows[i].Cells[3].Value.ToString());
                 }

@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassNotif.cs" />
     <Compile Include="ClassTbl.cs" />
     <Compile Include="frmTaskRemin.cs">
       <SubType>Form</SubType>
@@ -87,7 +88,7 @@
     <Compile Include="LoginPage.Designer.cs">
       <DependentUpon>LoginPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notification.cs" />
+    <Compile Include="INotif.cs" />
     <Compile Include="Option.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +97,7 @@
     </Compile>
     <Compile Include="ReminderModel.cs" />
     <Compile Include="ReminderModel2.cs" />
+    <Compile Include="TaskNotif.cs" />
     <Compile Include="TaskTbl.cs" />
     <Compile Include="frmClassReminder.cs">
       <SubType>Form</SubType>

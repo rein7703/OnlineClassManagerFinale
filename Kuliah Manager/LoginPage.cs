@@ -56,6 +56,11 @@ namespace Kuliah_Manager
                 MessageBox.Show("Pastikan sudah mengisi kolom username dan password dengan benar");
             }
          }
+
+        private void onClassLbl_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
     

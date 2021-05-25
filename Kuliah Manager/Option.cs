@@ -37,5 +37,10 @@ namespace Kuliah_Manager
         {
             this.Close();
         }
+
+        private void checkLbl_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

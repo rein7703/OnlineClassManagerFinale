@@ -110,6 +110,7 @@ namespace Kuliah_Manager
                 cbHour.Text = "";
                 cbMin.Text = "";
             }
+            retrieve();
         }
         #endregion ADD DATA
 
@@ -319,10 +320,10 @@ namespace Kuliah_Manager
         int dayNow;
 
         //kalau pakai array jadinya jumlah member arraynya harus nyesuaiin jml row dgv, jadinya mending nanti ganti List
-        string[] alarmHour = new string[8];
-        string[] alarmMinute = new string[8];
-        string[] alarmDay = new string[8];
-        int[] alarmDayEnum = new int[8];
+        string[] alarmHour = new string[18];
+        string[] alarmMinute = new string[18];
+        string[] alarmDay = new string[18];
+        int[] alarmDayEnum = new int[18];
         private Boolean popup;
 
         //ALARM AKAN BUNYI JIKA HARI DAN JAM SAMA
@@ -339,8 +340,8 @@ namespace Kuliah_Manager
                     axWindowsMediaPlayer1.URL = "school_alarm.mp3";
 
                     //munculkan popup notif
-                    Notification notif = new Notification();
-                    notif.ClassNotif();
+                    ClassNotif notif = new ClassNotif();
+                    notif.Notify();
 
                     lblNotif.Text = ("=> Kelas " + dgvClass.Rows[i].Cells[0].Value.ToString() + " dimulai!");
                 }
@@ -352,8 +353,8 @@ namespace Kuliah_Manager
                     axWindowsMediaPlayer1.URL = "school_alarm.mp3";
 
                     //munculkan popup notif
-                    Notification notif = new Notification();
-                    notif.ClassNotifPre();
+                    ClassNotif notif = new ClassNotif();
+                    notif.NotifyPre();
 
                     lblNotif.Text = ("=> Kelas " + dgvClass.Rows[i].Cells[0].Value.ToString() + " dalam 10 menit!");
                 }
