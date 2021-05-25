@@ -5,12 +5,18 @@ CARA PENGGUNAAN ONLINE CLASS MANAGER SETUPER
 1. Ekstrak file berekstensi rar
 2. Jalankan setup.exe
 3. Klik Install
-4. Login dengan 
+
+CARA PENGGUNAAN FILE .EXE
+1. Masuk ke folder Kuliah Manager -> bin -> debug 
+2. Klik Kuliah Manager.exe
+
+LOGIN 
+1. Login dengan 
 - Username: 0User dan Password: 0Pass
   atau
 - Username: 1User dan Password: 1Pass
 
-5. Pilih reminder untuk KELAS atau TUGAS
+2. Pilih reminder untuk KELAS atau TUGAS
 
 UNTUK REMINDER KELAS
 1. Masukkan nama matkul, link meeting, link presensi, link drive, hari, jam, dan menit (WAJIB SEMUA)
