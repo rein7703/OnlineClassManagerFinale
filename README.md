@@ -6,9 +6,8 @@ CARA PENGGUNAAN ONLINE CLASS MANAGER SETUPER
 2. Jalankan setup.exe
 3. Klik Install
 
-CARA PENGGUNAAN FILE .EXE
-1. Masuk ke folder Kuliah Manager 
-2. Klik Kuliah Manager.sln
+CARA PENGGUNAAN FILE .SLN
+1. Klik Kuliah Manager.sln
 
 LOGIN 
 1. Login dengan 
