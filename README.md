@@ -7,8 +7,8 @@ CARA PENGGUNAAN ONLINE CLASS MANAGER SETUPER
 3. Klik Install
 
 CARA PENGGUNAAN FILE .EXE
-1. Masuk ke folder Kuliah Manager -> bin -> debug 
-2. Klik Kuliah Manager.exe
+1. Masuk ke folder Kuliah Manager 
+2. Klik Kuliah Manager.sln
 
 LOGIN 
 1. Login dengan 
